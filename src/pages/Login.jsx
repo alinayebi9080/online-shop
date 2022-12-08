@@ -1,14 +1,19 @@
 import { useFormik } from "formik";
+import { Navigate } from "react-router";
 import TextField from "../components/base/TextField";
 import useAuth from "../components/login/hooks/useAuth";
+import useUser from "../components/login/hooks/useUser";
 
 const Login = () => {
   const { login } = useAuth();
-
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     onSubmit: login,
   });
+
+  const { profile } = useUser();
+
+  if (profile) return <Navigate to={"/"} replace={true} />;
 
   return (
     <div className="container">
