@@ -8,13 +8,13 @@ const Home = () => {
   const { products, pageCount } = useProducts(selectedPage);
 
   return (
-    <div className="container">
-      <div className="grid grid-cols-5 gap-4 ">
+    <div className="container my-4">
+      <div className="grid grid-cols-3 gap-4 ">
         {products.map((item) => (
           <ProductCard {...item} key={item._id} />
         ))}
       </div>
-      <div className="mx-auto">
+      <div className="mx-auto my-8">
         <Pagination
           onPageChange={(data) => setSelectedPage(data.selected)}
           pageCount={pageCount}

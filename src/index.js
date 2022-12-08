@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./asset/css/index.css";
 import App from "./components/app/App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+
+import "./asset/css/font.css";
+import "./asset/css/index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
