@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-const TextField = ({ name, placeholder, formik, label }) => {
+const TextField = ({ name, placeholder, formik, label, type }) => {
   const id = useId();
   return (
     <div className="flex justify-between m-2">
@@ -9,6 +9,7 @@ const TextField = ({ name, placeholder, formik, label }) => {
         id={`${name}-${id}`}
         placeholder={placeholder}
         name={name}
+        type={type}
         className="border p-2"
         {...formik.getFieldProps(name)}
       />
