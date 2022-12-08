@@ -16,6 +16,7 @@ export function generateQueryClient() {
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
+        retry: false,
       },
       mutations: {
         onError: queryErrorHandler,

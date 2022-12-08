@@ -1,6 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { axiosInstance } from "../../../util/axiosInstance";
+import { userKeys } from "../../../util/reactQuery/constants";
+import { saveUser } from "../../../util/storage";
 
 const loginCall = async (body) => {
   const { data } = await axiosInstance.post("/user/login", body);
@@ -14,10 +16,13 @@ const signUpCall = async (body) => {
 
 const useAuth = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { mutate: login } = useMutation({
     mutationFn: loginCall,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      queryClient.setQueryData(userKeys.profile, data);
+      saveUser(data);
       navigate("/");
     },
   });
