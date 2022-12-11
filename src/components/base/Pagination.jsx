@@ -6,10 +6,10 @@ const Pagination = ({ pageCount, onPageChange }) => {
       <ReactPaginate
         previousLabel={"قبلی"}
         nextLabel={"بعدی"}
-        breakLabel={"..."}
+        breakLabel={".."}
         pageCount={pageCount}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
+        marginPagesDisplayed={1}
+        pageRangeDisplayed={2}
         breakClassName={"px-4 mx-2 py-1 rounded-md "}
         containerClassName={
           "flex items-center justify-center border-gray-500 px-2 mx-2 py-1 rounded-md "

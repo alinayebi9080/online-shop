@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { axiosInstance } from "../../../util/axiosInstance";
 import { userKeys } from "../../../util/reactQuery/constants";
-import { saveUser } from "../../../util/storage";
+import { clearStoredUser, saveUser } from "../../../util/storage";
 
 const loginCall = async (body) => {
   const { data } = await axiosInstance.post("/user/login", body);
@@ -11,6 +11,11 @@ const loginCall = async (body) => {
 
 const signUpCall = async (body) => {
   const { data } = await axiosInstance.post("/user/register", body);
+  return data;
+};
+
+const logOutCall = async () => {
+  const { data } = await axiosInstance.get("/user/logout");
   return data;
 };
 
@@ -34,7 +39,16 @@ const useAuth = () => {
     },
   });
 
-  return { login, signUp };
+  const { mutate: logOut } = useMutation({
+    mutationFn: logOutCall,
+    onSuccess: () => {
+      queryClient.setQueryData(userKeys.profile, null);
+      clearStoredUser();
+      navigate("/login");
+    },
+  });
+
+  return { login, signUp, logOut };
 };
 
 export default useAuth;

@@ -4,5 +4,6 @@ export const userKeys = {
 
 export const productKeys = {
   all: (page) => ["product", "all", page],
-  one: (id) => ["product", id],
+  detail: () => ["product", "detail"],
+  one: (id) => [...productKeys.detail(), id],
 };
