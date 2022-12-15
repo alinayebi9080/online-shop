@@ -1,1 +1,1 @@
-export const basUrl = "/api";
+export const basUrl = "http://admin.richapplication.ir/api";
