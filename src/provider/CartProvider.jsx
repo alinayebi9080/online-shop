@@ -18,7 +18,7 @@ const reducer = (state, { type, payload }) => {
   switch (type) {
     case "ADD_PRODUCT": {
       const newState = [...state, payload];
-      worker.port.postMessage(newState);
+      worker?.port.postMessage(newState);
       return newState;
     }
     case "RESET":
@@ -32,12 +32,14 @@ const CartProvider = ({ children }) => {
   const [basket, dispatch] = useReducer(reducer, []);
 
   useEffect(() => {
-    worker = new SharedWorker(new URL("../CartWorker", import.meta.url));
-    worker.port.onmessage = (e) => {
-      if (e.data) {
-        dispatch({ type: "RESET", payload: JSON.parse(e.data) });
-      }
-    };
+    if("SharedWorker" in navigator){
+      worker = new SharedWorker(new URL("../CartWorker", import.meta.url));
+      worker.port.onmessage = (e) => {
+        if (e.data) {
+          dispatch({ type: "RESET", payload: JSON.parse(e.data) });
+        }
+      };
+    }
   }, []);
 
   return (
